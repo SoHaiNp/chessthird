@@ -8,6 +8,8 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.utils.ScreenUtils;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 
 /** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
 public class Main extends ApplicationAdapter {
@@ -18,6 +20,7 @@ public class Main extends ApplicationAdapter {
     TiledMap tiledMap;
     OrthogonalTiledMapRenderer tiledMapRenderer;
     OrthographicCamera orthographicCamera;
+    Viewport viewport;
 
     @Override
     public void create() {
@@ -29,8 +32,10 @@ public class Main extends ApplicationAdapter {
         tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap, 1 / 32f);
 
         orthographicCamera = new OrthographicCamera();
-        orthographicCamera.setToOrtho(false, 20, 10);
+        orthographicCamera.setToOrtho(false, 30, 20);
         orthographicCamera.update();
+
+        viewport = new FitViewport(30, 20, orthographicCamera);
     }
 
     @Override
@@ -46,6 +51,11 @@ public class Main extends ApplicationAdapter {
         batch.begin();
         // batch.draw(image, 140, 210);
         batch.end();
+    }
+
+    @Override
+    public void resize(int width, int height) {
+        viewport.update(width, height);
     }
 
     @Override
