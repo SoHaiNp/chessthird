@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+import io.retronimia.thepromotion.entity.Pawn;
 import space.earlygrey.shapedrawer.ShapeDrawer;
 
 public class DebugMap {
@@ -16,11 +17,11 @@ public class DebugMap {
     // 1. Utilitários para Gráficos
     private ShapeDrawer shapeDrawer;
 
-    // 1. Ativos
+    // 2. Ativos
     private Rectangle[] mapLayers;
     private Vector2[] coordinates;
 
-    // 2. Dados
+    // 3. Dados
     private static final float LAYER_WIDTH = 1440;
     private static final float LAYER_HEIGHT = 900;
     private int mapLayerToFocus = 0;
