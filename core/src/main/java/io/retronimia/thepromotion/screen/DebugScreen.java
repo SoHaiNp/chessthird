@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import io.retronimia.thepromotion.entity.Pawn;
 import io.retronimia.thepromotion.map.DebugMap;
 
 public class DebugScreen implements Screen {
@@ -22,6 +23,7 @@ public class DebugScreen implements Screen {
     private Texture mapTexture;
     private Sprite mapSprite;
     private DebugMap debugMap;
+    private Pawn pawn;
 
     // 3. Dados
 //    private static final float WORLD_WIDTH = 5760;
@@ -41,6 +43,7 @@ public class DebugScreen implements Screen {
         mapTexture = new Texture("new_world_chess_board.png");
         mapSprite = new Sprite(mapTexture);
         debugMap = new DebugMap(spriteBatch);
+        pawn = new Pawn();
     }
 
     @Override
@@ -48,15 +51,17 @@ public class DebugScreen implements Screen {
         // 1. Limpar o Buffer da tela
         ScreenUtils.clear(Color.RED);
 
-        // 2. Atualizar a Matriz de Projeção
+        // 2. Atualizar a Matriz de Projeção e Câmera
         spriteBatch.setProjectionMatrix(orthographicCamera.combined);
         debugMap.debugFocusOnMapLayer(orthographicCamera);
+        pawn.move();
         orthographicCamera.update();
 
         // 3. Desenhar na tela
         spriteBatch.begin();
         spriteBatch.draw(mapSprite, -WORLD_WIDTH / 2f, -WORLD_HEIGHT / 2f);
         debugMap.drawMapLayers(mapSprite);
+        pawn.draw(spriteBatch);
         spriteBatch.end();
     }
 
